@@ -4,7 +4,7 @@
 **Author:** `Jimmy Källhagen`  
 **License:** `GPL-3.0-or-later`
 
-> **A simple local Markdown reader with basic HTML support. Made to view Nordix documentation.**:
+> **A simple local Markdown reader with basic HTML support. To view Nordix or other project documentation.**:
 
 ---
 

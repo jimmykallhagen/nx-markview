@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nx-markview</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            margin-top: 2.5rem;
+            -webkit-app-region: no-drag;
+            background-color: #1e2127;
+            color: #81d1f1;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            padding: 2rem 4rem;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+        }
+        h1, h2, h3 { color: #11d1f5; margin: 1.5rem 0 0.75rem; }
+        a          { color: #61afef; }
+        code       { background: #2c313a; padding: 0.2rem 0.4rem; border-radius: 4px; font-family: monospace; color: #98c379; }
+        pre        { background: #2c313a; padding: 1rem; border-radius: 6px; overflow-x: auto; margin: 1rem 0; border: 1px solid #3e4451; }
+        pre code   { background: none; padding: 0; color: #abb2bf; }
+        blockquote { border-left: 3px solid #11d1f5; padding: 0.5rem 1rem; color: #7f848e; margin: 1rem 0; background: #2c313a; border-radius: 0 4px 4px 0; }
+        table      { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+        th, td     { border: 1px solid #3e4451; padding: 0.5rem 1rem; }
+        th         { background: #81d1f1; color: #e5c07b; }
+        hr         { border: none; border-top: 1px solid #3e4451; margin: 2rem 0; }
+        #error     { color: #e06c75; background: #2c313a; padding: 1rem; border-radius: 6px; border-left: 3px solid #e06c75; }
+kbd {
+    display: inline-block;
+    padding: 0.15rem 0.8rem;
+    line-height: 1;
+    background: #2c313a;
+    border: 1px solid #3e4451;
+    border-radius: 6px;
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: #81d1f1;
+    margin: 0.2rem 0;
+}
+#titlebar-name {
+    font-weight: bold;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: #81d1f1;
+    margin: 0.2rem 0;
+}
+        #titlebar {
+            background: #161a1f;
+            color: #11d1f5;
+            font-family: monospace;
+            font-size: 0.85rem;
+            padding: 0.4rem 1rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            -webkit-app-region: drag;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #titlebar-buttons {
+            -webkit-app-region: no-drag;
+            display: flex;
+            gap: 0.5rem;
+        }
+        #titlebar-buttons button {
+            background: none;
+            border: none;
+            color: #81d1f1;
+            cursor: pointer;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+        }
+        #titlebar-buttons button:hover {
+            background: #2c313a;
+        }
+    </style>
+</head>
+<body>
+    <div id="titlebar">
+        <span id="titlebar-name">nx-markview</span>
+        <div id="titlebar-buttons">
+            <button id="btn-minimize">─</button>
+            <button id="btn-close">✕</button>
+        </div>
+    </div>
+    <div id="content"></div>
+    <div id="error" style="display:none"></div>
+    <script>
+        const { readTextFile } = window.__TAURI__.fs;
+        const { getMatches }   = window.__TAURI__.cli;
+        const { convertFileSrc } = window.__TAURI__.core;
+        const { getCurrentWindow } = window.__TAURI__.window;
+
+        const content   = document.getElementById('content');
+        const error     = document.getElementById('error');
+        const appWindow = getCurrentWindow();
+
+        document.getElementById('btn-minimize').onclick = () => appWindow.minimize();
+        document.getElementById('btn-close').onclick    = () => appWindow.close();
+
+        async function fixImages() {
+            const imgs = document.querySelectorAll('img');
+            for (const img of imgs) {
+                const src = img.getAttribute('src');
+                if (!src) continue;
+                if (src.startsWith('http')) continue;
+                const filePath = (await getMatches()).args.file?.value;
+                const dir = filePath.substring(0, filePath.lastIndexOf('/'));
+                const absolutePath = src.startsWith('/') ? src : `${dir}/${src}`;
+                img.src = convertFileSrc(absolutePath);
+            }
+        }
+
+        async function init() {
+            try {
+                const matches  = await getMatches();
+                const filePath = matches.args.file?.value;
+
+                if (!filePath) {
+                    error.style.display = 'block';
+                    error.textContent   = 'Usage: nx-markview /path/to/file.md';
+                } else {
+                    const text = await readTextFile(filePath);
+                    marked.setOptions({ gfm: true, breaks: true, sanitize: false });
+                    content.innerHTML = marked.parse(text);
+                    fixImages();
+                }
+            } catch (e) {
+                error.style.display = 'block';
+                error.textContent   = 'Could not read file: ' + e;
+            }
+        }
+
+        init();
+
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === '+') {
+                document.body.style.fontSize = (parseFloat(getComputedStyle(document.body).fontSize) + 2) + 'px';
+            }
+            if (e.ctrlKey && e.key === '-') {
+                document.body.style.fontSize = (parseFloat(getComputedStyle(document.body).fontSize) - 2) + 'px';
+            }
+            if (e.ctrlKey && e.key === '0') {
+                document.body.style.fontSize = '16px';
+            }
+        });
+    </script>
+</body>
+</html>

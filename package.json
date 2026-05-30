@@ -1,0 +1,13 @@
+{
+  "name": "nx-markview",
+  "version": "0.1.0",
+  "description": "Nordix Markdown Viewer",
+  "author": "Jimmy Källhagen",
+  "license": "GPL-3.0-or-later",
+  "type": "module",
+  "dependencies": {
+    "@tauri-apps/plugin-cli": "^2.4.1",
+    "@tauri-apps/plugin-fs": "^2.5.1",
+    "marked": "^18.0.4"
+  }
+}

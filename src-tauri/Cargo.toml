@@ -1,0 +1,25 @@
+[package]
+name = "nx-markview"
+version = "0.1.0"
+description = "A simple local Markdown and HTML viewer for Nordix documentation."
+authors = ["jimmy källhagen"]
+license = "GPL-3.0-or-later"
+repository = "https://github.com/jimmykallhagen/nx-markview"
+edition = "2021"
+rust-version = "1.77.2"
+
+[lib]
+name = "app_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2.6.2", features = [] }
+
+[dependencies]
+serde_json = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+log = "0.4"
+tauri = { version = "2.11.2", features = ["protocol-asset"] }
+tauri-plugin-log = "2"
+tauri-plugin-fs = "2"
+tauri-plugin-cli = "2"

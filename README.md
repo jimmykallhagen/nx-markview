@@ -4,12 +4,12 @@
 **Author:** `Jimmy Källhagen`  
 **License:** `GPL-3.0-or-later`
 
-> **A simple local Markdown viewer with simple HTML support. Build with Cargo Tauri**:
+> **A simple local Markdown reader with basic HTML support. Made to view Nordix documentation.**:
 
 ---
 
 # Functions
-
+ -  Build with Cargo Tauri
  - Preeview Markdown files like `README.md`
  - "Drop in" to other projekt to show documantations
  - Support simple HTML tags like `<kbd>`, `<br>`, `<div>`, `<img>`

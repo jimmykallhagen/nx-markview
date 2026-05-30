@@ -46,7 +46,8 @@
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",
-      "icons/128x128@2x.png"
+      "icons/28x128@2.png",
+      "icons/256x256.png"
     ]
   }
 }

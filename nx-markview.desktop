@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=nx-markview
+Comment=A simple local Markdown and HTML viewer for Nordix documentation.
+Exec=nx-markview %f
+Icon=nx-markview
+Type=Application
+Categories=Utility;
+MimeType=text/markdown;text/html;

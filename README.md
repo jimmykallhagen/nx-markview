@@ -53,4 +53,6 @@ yay -Sy nx-markview
 
 ---
 
-
+## Screenshots
+![1](https://github.com/jimmykallhagen/nx-markview/blob/main/screenshots/Screenshot-Sat%20May%2030%2007%3A06%3A29%20PM%20CEST%202026.png)
+![2](https://github.com/jimmykallhagen/nx-markview/blob/main/screenshots/Screenshot-Sat%20May%2030%2007%3A09%3A09%20PM%20CEST%202026.png)

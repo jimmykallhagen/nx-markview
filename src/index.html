@@ -72,17 +72,13 @@ kbd {
     justify-content: space-between;
     align-items: center;
 
-    /* --- NYA RADER HÄR --- */
-    transform: translateY(-90%); /* Gömmer nästan hela baren (sparar en liten kant) */
-    transition: transform 0.2s ease-in-out; /* Gör rörelsen mjuk */
-}
+    transform: translateY(-90%);
+    transition: transform 0.2s ease-in-out; 
 
-/* Visar hela baren när musen nuddar toppen */
 #titlebar:hover {
     transform: translateY(0);
 }
 
-/* Detta ser till att innehållet under inte täcks när baren är framme */
 body {
     padding-top: 5px; 
 }

@@ -94,6 +94,7 @@ kbd {
     <div id="titlebar">
         <span id="titlebar-name">nx-markview</span>
         <div id="titlebar-buttons">
+            <button id="btn-back">Back</button>
             <button id="btn-minimize">─</button>
             <button id="btn-close">✕</button>
         </div>
@@ -110,6 +111,7 @@ kbd {
         const error     = document.getElementById('error');
         const appWindow = getCurrentWindow();
 
+        document.getElementById('btn-back').onclick     = () => window.history.back();
         document.getElementById('btn-minimize').onclick = () => appWindow.minimize();
         document.getElementById('btn-close').onclick    = () => appWindow.close();
 

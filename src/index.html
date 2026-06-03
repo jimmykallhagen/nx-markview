@@ -57,37 +57,36 @@ kbd {
     margin: 0.2rem 0;
 }
         #titlebar {
-            background: #161a1f;
-            color: #11d1f5;
-            font-family: monospace;
-            font-size: 0.85rem;
-            padding: 0.4rem 1rem;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            -webkit-app-region: drag;
-            z-index: 100;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        #titlebar-buttons {
-            -webkit-app-region: no-drag;
-            display: flex;
-            gap: 0.5rem;
-        }
-        #titlebar-buttons button {
-            background: none;
-            border: none;
-            color: #81d1f1;
-            cursor: pointer;
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-        }
-        #titlebar-buttons button:hover {
-            background: #2c313a;
-        }
+    background: #161a1f;
+    color: #11d1f5;
+    font-family: monospace;
+    font-size: 0.85rem;
+    padding: 0.4rem 1rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    -webkit-app-region: drag;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    /* --- NYA RADER HÄR --- */
+    transform: translateY(-90%); /* Gömmer nästan hela baren (sparar en liten kant) */
+    transition: transform 0.2s ease-in-out; /* Gör rörelsen mjuk */
+}
+
+/* Visar hela baren när musen nuddar toppen */
+#titlebar:hover {
+    transform: translateY(0);
+}
+
+/* Detta ser till att innehållet under inte täcks när baren är framme */
+body {
+    padding-top: 5px; 
+}
+
     </style>
 </head>
 <body>

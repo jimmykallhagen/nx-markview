@@ -112,6 +112,13 @@ kbd {
 
         document.getElementById('btn-minimize').onclick = () => appWindow.minimize();
         document.getElementById('btn-close').onclick    = () => appWindow.close();
+        document.getElementById('btn-back').onclick = () => {
+         if (window.history.length > 1) {
+             window.history.back();
+         } else {
+             console.log("Ingen historik att gå tillbaka till");
+         }
+};
 
         async function fixImages() {
             const imgs = document.querySelectorAll('img');

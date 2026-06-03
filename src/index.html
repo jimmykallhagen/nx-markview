@@ -269,9 +269,7 @@ kbd {
 
                 if (!filePath) {
                     error.style.display = 'block';
-                    error.textContent   = 'Usage: nx-markview /path/to/file.md'
-                    error.style.display = 'block';
-                    error.textContent   = 'Zoom in CTRL +, Zoom out CTRL -, Reset CTRL 0';
+                    error.textContent   = 'Usage: nx-markview /path/to/file.md, Zoom in CTRL +, Zoom out CTRL -, Reset CTRL 0';
                 } else {
                     const text = await readTextFile(filePath);
                     marked.setOptions({ gfm: true, breaks: true, sanitize: false });

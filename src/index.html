@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>nx-markview</title>
+    <title>Nordix Markview</title>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
         * {
@@ -11,151 +11,256 @@
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
-            margin-top: 2.5rem;
-            -webkit-app-region: no-drag;
-            background-color: #1e2127;
-            color: #ffffffff;#
+            margin-top: 40px;
+            background-color: #1e2127ff;
+            color: #ffffff;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
             padding: 2rem 4rem;
             max-width: 900px;
             margin-left: auto;
             margin-right: auto;
             line-height: 1.7;
+            -webkit-app-region: drag;
         }
-        h1, h2, h3 { color: #8fcbffff; margin: 1.5rem 0 0.75rem; }
-        a          { color: #8fcbffff; }
-        code       { background: #2c313a; padding: 0.2rem 0.4rem; border-radius: 4px; font-family: monospace; color: #98c379; }
-        pre        { background: #2c313a; padding: 1rem; border-radius: 6px; overflow-x: auto; margin: 1rem 0; border: 1px solid #3e4451; }
-        pre code   { background: none; padding: 0; color: #abb2bf; }
-        blockquote { border-left: 3px solid #11d1f5; padding: 0.5rem 1rem; color: #7f848e; margin: 1rem 0; background: #2c313a; border-radius: 0 4px 4px 0; }
-        table      { border-collapse: collapse; width: 100%; margin: 1rem 0; }
-        th, td     { border: 1px solid #3e4451; padding: 0.5rem 1rem; }
-        th         { background: #81d1f1; color: #e5c07b; }
-        hr         { border: none; border-top: 1px solid #3e4451; margin: 2rem 0; }
-        #error     { color: #e06c75; background: #2c313a; padding: 1rem; border-radius: 6px; border-left: 3px solid #e06c75; }
-kbd {
-    display: inline-block;
-    padding: 0.15rem 0.8rem;
-    line-height: 1;
-    background: #2c313a;
-    border: 1px solid #3e4451;
-    border-radius: 6px;
-    font-family: monospace;
-    font-size: 0.85rem;
-    color: #81d1f1;
-    margin: 0.2rem 0;
-}
-#titlebar-name {
-    font-weight: bold;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: monospace;
-    font-size: 0.85rem;
-    color: #81d1f1;
-    margin: 0.2rem 0;
-}
+
+        h1, h2, h3 {
+            color: #8fcbffff;
+            margin: 1.5rem 0 0.75rem;
+        }
+
+        a {
+            color: #8fcbffff;
+        }
+
+        code {
+            background: #2c313a;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+            color: #98c379;
+        }
+
+        pre {
+            background: #2c313a;
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            border: 1px solid #3e4451;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            color: #9ce6ffff;
+        }
+
+        blockquote {
+            border-left: 3px solid #11d1f5;
+            padding: 0.5rem 1rem;
+            color: #9ce6ffff;
+            margin: 1rem 0;
+            background: #2c313a;
+            border-radius: 0 4px 4px 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1rem 0;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        th, td {
+            border: 1px solid #3e4451;
+            padding: 0.5rem 1rem;
+        }
+
+        th {
+            background: #8fcbff66;
+            color: #9ce6ffff;
+        }
+
+        th:first-child, td:first-child {
+            border-top-left-radius: 8px;
+            border-bottom-left-radius: 8px;
+        }
+
+        th:last-child, td:last-child {
+            border-top-right-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+
+        hr {
+            border: none;
+            border-top: 2px solid #9ce6ffaa;
+            margin: 2rem 0;
+        }
+
+        #error {
+            color: #e16c75;
+            background: #2c313a;
+            padding: 1rem;
+            border-radius: 6px;
+            border-left: 3px solid #e06c75;
+            display: none;
+        }
+
+        /* ===== TITLE BAR ===== */
         #titlebar {
-    background: #161a1f;
-    color: #11d1f5;
-    font-family: monospace;
-    font-size: 0.85rem;
-    padding: 0.4rem 1rem;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    -webkit-app-region: drag;
-    z-index: 100;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+            background: #2c313a;
+            color: #81d1f1;
+            font-family: monospace;
+            font-size: 0.85rem;
+            padding: 0.4rem 1rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            -webkit-app-region: drag;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid #3e4451;
+            height: 40px;
+        }
 
-    transform: translateY(-90%);
-    transition: transform 0.2s ease-in-out; 
+        /* ===== LEFT SIDE: ZOOM BUTTONS ===== */
+        .zoom-buttons {
+            display: flex;
+            gap: 4px;
+        }
 
-#titlebar:hover {
-    transform: translateY(0);
-}
+        /* ===== MIDDLE: APP NAME ===== */
+        #app-name {
+            font-weight: bold;
+            color: #81d1f1;
+            font-family: monospace;
+            font-size: 1rem;
+            flex-grow: 1;
+            text-align: center;
+            margin: 0 1rem;
+        }
 
-body {
-    padding-top: 5px; 
-}
+        /* ===== RIGHT SIDE: CLOSE BUTTON ===== */
+        .close-btn {
+            background: transparent;
+            border: 1px solid #e06c75;
+            color: #e06c75;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            -webkit-app-region: no-drag;
+            transition: all 0.2s ease;
+            margin-left: auto;
+        }
 
+        .close-btn:hover {
+            background-color: #e06c75;
+            color: #2c313a;
+        }
+
+        /* ===== ZOOM BUTTONS ===== */
+        .zoom-btn {
+            background: transparent;
+            border: 1px solid #3e4451;
+            color: #81d1f1;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            -webkit-app-region: no-drag;
+        }
+
+        .zoom-btn:hover {
+            background-color: #3e4451;
+            color: #ffffff;
+            border-color: #11d1f5;
+        }
+
+        #content-area {
+            min-height: 100vh;
+        }
     </style>
 </head>
 <body>
     <div id="titlebar">
-        <span id="titlebar-name">nx-markview</span>
-        <div id="titlebar-buttons">
-            <button id="btn-back">Back</button>
-            <button id="btn-minimize">─</button>
-            <button id="btn-close">✕</button>
+        <div class="zoom-buttons">
+            <button class="zoom-btn" id="btn-zoom-out" title="Zoom Out (-)">-</button>
+            <button class="zoom-btn" id="btn-zoom-in" title="Zoom In (+)">+</button>
         </div>
+        <span id="app-name">Nordix Markview</span>
+        <button class="close-btn" id="btn-close" title="Close Window (X)">✕</button>
     </div>
-    <div id="content"></div>
-    <div id="error" style="display:none"></div>
+
+    <div id="content-area">
+        <div id="error" style="color: #e16c75; background: #2c313a; padding: 1rem; border-radius: 6px; border-left: 3px solid #e06c75; display: none;"></div>
+    </div>
+
     <script>
         const { readTextFile } = window.__TAURI__.fs;
-        const { getMatches }   = window.__TAURI__.cli;
-        const { convertFileSrc } = window.__TAURI__.core;
         const { getCurrentWindow } = window.__TAURI__.window;
 
-        const content   = document.getElementById('content');
-        const error     = document.getElementById('error');
+        const contentArea = document.getElementById('content-area');
+        const errorDiv = document.getElementById('error');
+        const closeBtn = document.getElementById('btn-close');
+        const zoomOutBtn = document.getElementById('btn-zoom-out');
+        const zoomInBtn = document.getElementById('btn-zoom-in');
         const appWindow = getCurrentWindow();
 
-        document.getElementById('btn-back').onclick     = () => window.history.back();
-        document.getElementById('btn-minimize').onclick = () => appWindow.minimize();
-        document.getElementById('btn-close').onclick    = () => appWindow.close();
+        closeBtn.addEventListener('click', () => {
+            appWindow.close();
+        });
 
-        async function fixImages() {
-            const imgs = document.querySelectorAll('img');
-            for (const img of imgs) {
-                const src = img.getAttribute('src');
-                if (!src) continue;
-                if (src.startsWith('http')) continue;
-                const filePath = (await getMatches()).args.file?.value;
-                const dir = filePath.substring(0, filePath.lastIndexOf('/'));
-                const absolutePath = src.startsWith('/') ? src : `${dir}/${src}`;
-                img.src = convertFileSrc(absolutePath);
+        let currentFontSize = 16;
+        const MIN_SIZE = 12;
+        const MAX_SIZE = 32;
+
+        zoomInBtn.addEventListener('click', () => {
+            if (currentFontSize < MAX_SIZE) {
+                currentFontSize += 2;
+                document.body.style.fontSize = currentFontSize + 'px';
             }
-        }
+        });
+
+        zoomOutBtn.addEventListener('click', () => {
+            if (currentFontSize > MIN_SIZE) {
+                currentFontSize -= 2;
+                document.body.style.fontSize = currentFontSize + 'px';
+            }
+        });
 
         async function init() {
             try {
-                const matches  = await getMatches();
+                const matches = await window.__TAURI__.cli.getMatches();
                 const filePath = matches.args.file?.value;
 
                 if (!filePath) {
-                    error.style.display = 'block';
-                    error.textContent   = 'Usage: nx-markview /path/to/file.md';
+                    errorDiv.textContent = 'Usage: nx-markview /path/to/file.md';
+                    errorDiv.style.display = 'block';
                 } else {
                     const text = await readTextFile(filePath);
                     marked.setOptions({ gfm: true, breaks: true, sanitize: false });
-                    content.innerHTML = marked.parse(text);
-                    fixImages();
+                    const html = marked.parse(text);
+                    contentArea.innerHTML = html;
                 }
             } catch (e) {
-                error.style.display = 'block';
-                error.textContent   = 'Could not read file: ' + e;
+                errorDiv.textContent = 'Error: ' + e;
+                errorDiv.style.display = 'block';
             }
         }
 
         init();
-
-        document.addEventListener('keydown', (e) => {
-            if (e.ctrlKey && e.key === '+') {
-                document.body.style.fontSize = (parseFloat(getComputedStyle(document.body).fontSize) + 2) + 'px';
-            }
-            if (e.ctrlKey && e.key === '-') {
-                document.body.style.fontSize = (parseFloat(getComputedStyle(document.body).fontSize) - 2) + 'px';
-            }
-            if (e.ctrlKey && e.key === '0') {
-                document.body.style.fontSize = '16px';
-            }
-        });
     </script>
 </body>
 </html>

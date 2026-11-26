@@ -8,8 +8,8 @@
 
 
 ## Nx-markview Sublime-Text4 support
-**nx-markview pluggin for Sublime-Tex4**
-[**nx-makrdown sublime pluggin is here**](SUBLIME-PLUGIN.md)
+**you find 'nx-markview' pluggin for Sublime-Tex4**
+[**Here**](SUBLIME-PLUGIN.md)
 
 ---
 

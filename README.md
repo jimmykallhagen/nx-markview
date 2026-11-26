@@ -6,10 +6,15 @@
 
 > **A simple local Markdown reader with basic HTML support. To view Nordix or other project documentation.**:
 
+
+## Nx-markview Sublime-Text4 support
+**nx-markview pluggin for Sublime-Tex4**
+[**nx-makrdown sublime pluggin is here**](SUBLIME-PLUGIN.md)
+
 ---
 
 # Functions
- -  Build with Cargo Tauri
+ - Build with Cargo Tauri
  - Preeview Markdown files like `README.md`
  - "Drop in" to other projekt to show documantations
  - Support simple HTML tags like `<kbd>`, `<br>`, `<div>`, `<img>`
